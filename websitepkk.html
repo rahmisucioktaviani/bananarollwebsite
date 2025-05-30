@@ -449,9 +449,15 @@ function updateCart() {
 
 function checkoutToWhatsapp() {
   let pesan = "Halo kak, saya mau beli\n";
+  let total = 0;
+
   cart.forEach((produk, index) => {
-    pesan += `${index + 1}. ${produk.name} x ${produk.qty} \n`;
+    let subtotal = produk.qty * produk.price;
+    total += subtotal;
+    pesan += `${index + 1}. ${produk.name} x ${produk.qty} = Rp. ${subtotal.toLocaleString()}\n`;
   });
+
+  pesan += `\nTotal Pesanan: Rp. ${total.toLocaleString()}`;
 
   const encodedMessage = encodeURIComponent(pesan);
   window.open(`https://wa.me/6281545689318?text=${encodedMessage}`);
