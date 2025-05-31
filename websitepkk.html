@@ -455,14 +455,14 @@ function updateCart() {
 }
 
 function checkoutToWhatsapp() {
-  
-  let pesan = "Halo kak, saya mau beli\n";
-  let total = 0;
-  if (total === 0){
+  if (!cart || cart.length === 0) {
     alert("Silahkan Pilih Terlebih Dahulu");
     return;
   }
-else{
+
+  let pesan = "Halo kak, saya mau beli\n";
+  let total = 0;
+
   cart.forEach((produk, index) => {
     let subtotal = produk.qty * produk.price;
     total += subtotal;
@@ -470,7 +470,6 @@ else{
   });
 
   pesan += `\nTotal Pesanan: Rp. ${total.toLocaleString()} \n  COD`;
- 
 
   const encodedMessage = encodeURIComponent(pesan);
   window.open(`https://wa.me/6281545689318?text=${encodedMessage}`);
