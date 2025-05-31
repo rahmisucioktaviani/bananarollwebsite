@@ -407,8 +407,6 @@ function tambahQty(id) {
   if (produk_yang_dipilih) {
     if (produk_yang_dipilih.qty < 10) {
       produk_yang_dipilih.qty += 1;
-    } else {
-      alert("Maksimal pembelian adalah 10 ");
     }
   }
   updateCart();
@@ -418,6 +416,9 @@ function kurangiQty(id) {
   let produk_yang_dipilih = cart.find(data => data.id === id);
   if (produk_yang_dipilih) {
     produk_yang_dipilih.qty -= 1;
+    if (produk_yang_dipilih.qty === 0) {
+      cart = cart.filter(item => item.id !== id); // langsung hapus tanpa alert
+    }
   }
   updateCart();
 }
@@ -431,7 +432,8 @@ function updateCart() {
     return;
   }
 
-  cart.filter(item => item.qty > 0) 
+  cart
+    .filter(item => item.qty > 0)
     .forEach(item => {
       const div = document.createElement("div");
       div.innerHTML = `
@@ -479,7 +481,6 @@ function checkoutToWhatsapp() {
   const encodedMessage = encodeURIComponent(pesan);
   window.open(`https://wa.me/6281545689318?text=${encodedMessage}`);
 }
-
 </script>
 </body>
 </html>
