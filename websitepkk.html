@@ -404,11 +404,17 @@ function tambahKeranjang(id) {
 
 function tambahQty(id) {
   let produk_yang_dipilih = cart.find(data => data.id === id);
-  if (produk_yang_dipilih && produk_yang_dipilih.qty < 10) {
-    produk_yang_dipilih.qty += 1;
+  if (produk_yang_dipilih) {
+    if (produk_yang_dipilih.qty < 10) {
+      produk_yang_dipilih.qty += 1;
+    } else {
+      alert("Anda sudah mencapai batas pembelian");
+    }
   }
   updateCart();
 }
+
+
 
 function kurangiQty(id) {
   let produk_yang_dipilih = cart.find(data => data.id === id);
