@@ -413,47 +413,50 @@ function tambahQty(id) {
   }
   updateCart();
 }
-  
-function kurangiQty(id) {
-  let index = cart.findIndex(item => item.id === id);
-  if (index !== -1) {
-    cart[index].qty -= 1;
 
-    if (cart[index].qty <= 0) {
-      cart.splice(index, 1); // hapus item dari cart
+function kurangiQty(id) {
+  let produk_yang_dipilih = cart.find(data => data.id === id);
+  if (produk_yang_dipilih) {
+    produk_yang_dipilih.qty -= 1;
+    if (produk_yang_dipilih.qty === 0) {
+      cart = cart.filter(item => item.id !== id); 
       alert("Pesanan dihapus dari keranjang.");
     }
   }
   updateCart();
 }
 
-
 function updateCart() {
   const cartItems = document.getElementById("cart-items");
   cartItems.innerHTML = "";
 
-  cart.forEach(item => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <h4>${item.name}</h4>
-      <p>${item.price.toLocaleString()} x ${item.qty}</p>
-      <p>Total: Rp. ${(item.price * item.qty).toLocaleString()}</p>
-      <div class="container-button">
-        <button onclick="tambahQty(${item.id})">+</button>
-        <button onclick="kurangiQty(${item.id})">-</button>
-      </div>
-    `;
-    cartItems.append(div);
-  });
+  if (cart.length === 0) {
+    cartItems.innerHTML = "<p>Keranjang kosong</p>";
+    return;
+  }
+
+  cart
+    .filter(item => item.qty > 0) // hanya tampilkan item yang qty-nya > 0
+    .forEach(item => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <h4>${item.name}</h4>
+        <p>${item.price.toLocaleString()} x ${item.qty}</p>
+        <p>Total: Rp. ${(item.price * item.qty).toLocaleString()}</p>
+        <div class="container-button">
+          <button onclick="tambahQty(${item.id})">+</button>
+          <button onclick="kurangiQty(${item.id})">-</button>
+        </div>
+      `;
+      cartItems.append(div);
+    });
 
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const totalElement = document.createElement("div");
   totalElement.style.marginTop = "20px";
   totalElement.style.fontWeight = "bold";
-  totalElement.innerHTML = `Total Pesanan: Rp. ${total.toLocaleString()} \n COD`;
+  totalElement.innerHTML = `Total Pesanan: Rp. ${total.toLocaleString()} <br> COD`;
   cartItems.append(totalElement);
-  
-  
 
   const buttonCheckout = document.createElement("button");
   buttonCheckout.innerText = "Checkout Via Whatsapp";
@@ -481,6 +484,7 @@ function checkoutToWhatsapp() {
   const encodedMessage = encodeURIComponent(pesan);
   window.open(`https://wa.me/6281545689318?text=${encodedMessage}`);
 }
+
 </script>
 </body>
 </html>
