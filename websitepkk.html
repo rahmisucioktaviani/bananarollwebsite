@@ -417,12 +417,8 @@ function tambahQty(id) {
 function kurangiQty(id) {
   let produk_yang_dipilih = cart.find(data => data.id === id);
   if (produk_yang_dipilih) {
-    if (produk_yang_dipilih.qty > 1) {
       produk_yang_dipilih.qty -= 1;
-    } else {
-      alert("Minimal pembelian adalah 1");
     }
-  }
   updateCart();
 }
 
