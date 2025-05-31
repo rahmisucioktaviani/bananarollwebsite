@@ -458,7 +458,11 @@ function checkoutToWhatsapp() {
   
   let pesan = "Halo kak, saya mau beli\n";
   let total = 0;
-
+  if (total === 0){
+    alert("Silahkan Pilih Terlebih Dahulu");
+    return;
+  }
+else{
   cart.forEach((produk, index) => {
     let subtotal = produk.qty * produk.price;
     total += subtotal;
