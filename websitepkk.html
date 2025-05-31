@@ -410,15 +410,16 @@ function tambahQty(id) {
   updateCart();
 }
 
-function kurangiQty(id) {
-  let item = cart.find(i => i.id === id);
-  if (item) {
-    item.qty -= 1;
-    if (item.qty <= 0) {
-      cart = cart.filter(i => i.id !== id);
+function tambahQty(id) {
+  let produk_yang_dipilih = cart.find(data => data.id === id);
+  if (produk_yang_dipilih) {
+    if (produk_yang_dipilih.qty < 10) {
+      produk_yang_dipilih.qty += 1;
+    } else {
+      alert("Maksimal pembelian adalah 10 item.");
     }
-    updateCart();
   }
+  updateCart();
 }
 
 function updateCart() {
