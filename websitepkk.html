@@ -405,20 +405,24 @@ function tambahKeranjang(id) {
 function tambahQty(id) {
   let produk_yang_dipilih = cart.find(data => data.id === id);
   if (produk_yang_dipilih) {
-    produk_yang_dipilih.qty += 1;
-  }
-  updateCart();
-}
-
-function tambahQty(id) {
-  let produk_yang_dipilih = cart.find(data => data.id === id);
-  if (produk_yang_dipilih) {
     if (produk_yang_dipilih.qty < 10) {
       produk_yang_dipilih.qty += 1;
     } else {
       alert("Maksimal pembelian adalah 10 ");
     }
   }
+  updateCart();
+}
+  
+function kurangiQty(id) {
+  let produk_yang_dipilih = cart.find(data => data.id === id);
+  if (produk_yang_dipilih) {
+   if(produk_yang_dipilih >0){
+     produk_yang_dipilih.qty -= 1;
+  }
+  else {
+      alert("Maksimal pembelian adalah 10 ");
+    }
   updateCart();
 }
 
