@@ -361,7 +361,7 @@ footer {
 </footer>
 
 <script>
- let product = [
+let product = [
   { id: 1, name: "Banana Roll Cokelat", price: 13000, image: "https://i.pinimg.com/736x/7a/c3/1a/7ac31a6d3164c6a1c0d5d68979ab5991.jpg" },
   { id: 2, name: "Banana Roll Strawberry", price: 13000, image: "https://i.pinimg.com/736x/7e/c8/a1/7ec8a1d15d01a0a78d622dfe1e60b99f.jpg" },
   { id: 3, name: "Banana Roll Mix", price: 13000, image: "https://i.pinimg.com/736x/22/c8/e8/22c8e8d750b4453cba5d9a1bc4c40ebd.jpg" }
@@ -404,10 +404,8 @@ function tambahKeranjang(id) {
 
 function tambahQty(id) {
   let produk_yang_dipilih = cart.find(data => data.id === id);
-  if (produk_yang_dipilih) {
-    if (produk_yang_dipilih.qty < 10) {
-      produk_yang_dipilih.qty += 1;
-    }
+  if (produk_yang_dipilih && produk_yang_dipilih.qty < 10) {
+    produk_yang_dipilih.qty += 1;
   }
   updateCart();
 }
@@ -417,7 +415,7 @@ function kurangiQty(id) {
   if (produk_yang_dipilih) {
     produk_yang_dipilih.qty -= 1;
     if (produk_yang_dipilih.qty === 0) {
-      cart = cart.filter(item => item.id !== id); // langsung hapus tanpa alert
+      cart = cart.filter(item => item.id !== id);
     }
   }
   updateCart();
@@ -452,7 +450,7 @@ function updateCart() {
   const totalElement = document.createElement("div");
   totalElement.style.marginTop = "20px";
   totalElement.style.fontWeight = "bold";
-  totalElement.innerHTML = `Total Pesanan: Rp. ${total.toLocaleString()} <br> COD`;
+  totalElement.innerHTML = `Total Pesanan: Rp. ${total.toLocaleString()}`;
   cartItems.append(totalElement);
 
   const buttonCheckout = document.createElement("button");
@@ -476,7 +474,7 @@ function checkoutToWhatsapp() {
     pesan += `${index + 1}. ${produk.name} x ${produk.qty} = Rp. ${subtotal.toLocaleString()}\n`;
   });
 
-  pesan += `\nTotal Pesanan: Rp. ${total.toLocaleString()} \n  COD`;
+  pesan += `\nTotal Pesanan: Rp. ${total.toLocaleString()}`;
 
   const encodedMessage = encodeURIComponent(pesan);
   window.open(`https://wa.me/6281545689318?text=${encodedMessage}`);
