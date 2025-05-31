@@ -443,9 +443,9 @@ function updateCart() {
   const totalElement = document.createElement("div");
   totalElement.style.marginTop = "20px";
   totalElement.style.fontWeight = "bold";
-  totalElement.innerHTML = `Total Pesanan: Rp. ${total.toLocaleString()}`;
+  totalElement.innerHTML = `Total Pesanan: Rp. ${total.toLocaleString()} \n Pembayaran hanya bisa COD`;
   cartItems.append(totalElement);
-  totalElement.innerHTML =`pembayaran via COD`
+  
   
 
   const buttonCheckout = document.createElement("button");
@@ -464,11 +464,12 @@ function checkoutToWhatsapp() {
     pesan += `${index + 1}. ${produk.name} x ${produk.qty} = Rp. ${subtotal.toLocaleString()}\n`;
   });
 
-  pesan += `\nTotal Pesanan: Rp. ${total.toLocaleString()}`;
+  pesan += `\nTotal Pesanan: Rp. ${total.toLocaleString()} \n Pembayaran COD`;
+ 
 
   const encodedMessage = encodeURIComponent(pesan);
   window.open(`https://wa.me/6281545689318?text=${encodedMessage}`);
 }
 </script>
 </body>
-  </html>
+</html>
