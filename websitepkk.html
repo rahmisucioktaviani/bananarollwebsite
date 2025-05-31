@@ -454,7 +454,13 @@ function updateCart() {
   cartItems.append(buttonCheckout);
 }
 
+function checkout(){
+  if(total===0){
+    alert("Silahkan pilih dulu sebelum checkout");
+    return;
+}
 function checkoutToWhatsapp() {
+  
   let pesan = "Halo kak, saya mau beli\n";
   let total = 0;
 
