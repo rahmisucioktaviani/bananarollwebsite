@@ -415,9 +415,14 @@ function tambahQty(id) {
 }
   
 function kurangiQty(id) {
-  let produk_yang_dipilih = cart.find(data => data.id === id);
-  if (produk_yang_dipilih) {
-    produk_yang_dipilih.qty = Math.max(0, produk_yang_dipilih.qty - 1);
+  let index = cart.findIndex(item => item.id === id);
+  if (index !== -1) {
+    cart[index].qty -= 1;
+
+    if (cart[index].qty <= 0) {
+      cart.splice(index, 1); // hapus item dari cart
+      alert("Pesanan dihapus dari keranjang.");
+    }
   }
   updateCart();
 }
